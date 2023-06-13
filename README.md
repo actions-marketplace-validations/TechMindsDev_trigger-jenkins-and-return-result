@@ -29,7 +29,8 @@ jobs:
         uses: mickeygoussetorg/trigger-jenkins-job@v1
         with:
           jenkins-server:  "${{ secrets.JENKINS_SERVER }}" # URL of the jenkins server. ex: http://myjenkins.acme.com:8080
-          jenkins-job: "mySampleApp" # The name of the jenkins job to run
+          jenkins-job: "mySampleApp" # The name of the jenkins job to run, you can put the path of the job with subfolders as well
+          job-params: "BRANCH=stage" # The name of the jenkins job to run, you can continue giving if there are other params separated by &
           jenkins-username: ${{ secrets.JENKINS_USERNAME }} # user name for accessing jenkins
           jenkins-pat: ${{ secrets.JENKINS_PAT }} # personal Access token for accessing Jenkins
           poll-time: 10 # how often (seconds) to poll the jenkins server for results
