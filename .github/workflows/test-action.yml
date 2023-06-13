@@ -1,21 +1,15 @@
 name: Test Jenkins Action
-
 on:
   workflow_dispatch:
-
-
 jobs:
-
   testaction:
-    
     runs-on: ubuntu-latest
-    
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # - uses: actions/checkout@v2
 
       - id: testjenkinsaction
-        uses: mickeygoussetorg/trigger-jenkins-job@v1
+        uses: TechMindsDev/trigger-jenkins-and-return-result@main
         with:
           jenkins-server:  "${{ secrets.JENKINS_SERVER }}" # URL of the jenkins server
           jenkins-job: "mySampleApp" # The name of the jenkins job to run
