@@ -19,6 +19,7 @@ jobs:
         with:
           jenkins-server:  "${{ secrets.JENKINS_SERVER }}" # URL of the jenkins server
           jenkins-job: "mySampleApp" # The name of the jenkins job to run
+          job-params: "BRANCH=stage" # you can specify any params with key=name and also give multiple by & separated
           jenkins-username: ${{ secrets.JENKINS_USERNAME }} # user name for accessing jenkins
           jenkins-pat: ${{ secrets.JENKINS_PAT }} # personal Access token for accessing Jenkins
           poll-time: 10 # how often to poll the jenkins server for results
