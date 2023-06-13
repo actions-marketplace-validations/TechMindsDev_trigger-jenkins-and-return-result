@@ -1,4 +1,4 @@
-name: 'Trigger Jenkins Job and Return Result'
+name: 'Trigger Jenkins Job with params and Return Result'
 description: 'I am used to trigger a Jenkins job and return the success/failure of the job run'
 inputs:
   jenkins-server:  # URL of the jenkins server
@@ -6,6 +6,10 @@ inputs:
     required: true
   jenkins-job: # The name of the jenkins job to run
     description: 'The name of the jenkins job to run'
+    required: true
+  job-params:
+    description: 'Jenkins build job parameters, eg: BRANCH=stage&SecondParameter=2nd'
+    default: true
     required: true
   jenkins-username: # user name for accessing jenkins
     description: 'User name for accessing Jenkins. Store this in a secret for security'
@@ -34,6 +38,7 @@ runs:
         #Parameters
         urlOfJenkinsServer="${{ inputs.jenkins-server }}"
         jenkinsJobName="${{ inputs.jenkins-job }}"
+        jenkinsJobParams="${{ inputs.job-params }}"
         pollTime=${{ inputs.poll-time }}
         timeoutValue=${{ inputs.timeout-value }}
         verbose=${{ inputs.verbose }}
@@ -50,7 +55,7 @@ runs:
 
         #Generate Crumb value
         CRUMB=`curl -s -u "$userName:$password" $urlOfJenkinsServer'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
-        TRIGGERJOBJSON=$(curl -I -s -X POST -u "$userName:$password"  -H "$CRUMB" "$urlOfJenkinsServer"/job/"$jenkinsJobName"/build)
+        TRIGGERJOBJSON=$(curl -I -s -X POST -u "$userName:$password"  -H "$CRUMB" "$urlOfJenkinsServer"/job/"$jenkinsJobName"/buildWithParameters?"$jenkinsJobParams")
         
         if [[ $verbose == true ]]; then
           echo "Results of Triggering The Job:"
