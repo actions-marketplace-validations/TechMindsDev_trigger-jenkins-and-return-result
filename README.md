@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: triggerjenkinsjob
-        uses: mickeygoussetorg/trigger-jenkins-job@v1
+        uses: TechMindsDev/trigger-jenkins-and-return-result@main
         with:
           jenkins-server:  "${{ secrets.JENKINS_SERVER }}" # URL of the jenkins server. ex: http://myjenkins.acme.com:8080
           jenkins-job: "mySampleApp" # The name of the jenkins job to run, you can put the path of the job with subfolders as well
